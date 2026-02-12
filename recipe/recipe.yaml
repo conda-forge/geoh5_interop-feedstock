@@ -4,11 +4,12 @@ context:
   python_min: 3.10
 
 package:
+  origname: ${{ name|lower }}
   name: ${{ name|lower|replace('_', '-') }}
   version: ${{ version }}
 
 source:
-  url: https://github.com/MiraGeoscience/${{ name }}/archive/v${{ version }}.tar.gz
+  url: https://github.com/MiraGeoscience/${{ origname }}/archive/v${{ version }}.tar.gz
   sha256: 50a1ef5fd8990583c86b0b326d69bf668359dddeb049be268a820154067f40e7
 
 build:
