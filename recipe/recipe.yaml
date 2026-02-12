@@ -1,6 +1,5 @@
 context:
   name: geoh5_interop
-  origname: ${{ name|lower }}
   version: 1.3.0
   python_min: 3.10
 
@@ -9,7 +8,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/MiraGeoscience/${{ origname }}/archive/v${{ version }}.tar.gz
+  url: https://github.com/MiraGeoscience/${{ name }}/archive/v${{ version }}.tar.gz
   sha256: b5d42898e812da1420e348309048a8bad1d56cdc11c8ca00a4828d3ac3fefae0
 
 build:
