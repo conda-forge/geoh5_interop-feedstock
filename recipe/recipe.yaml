@@ -1,41 +1,47 @@
 context:
-  name: geoh5_interop
-  version: 1.1.1
-  python_min: 3.10
+  name: geoh5-interop
+  version: "1.3.0"
+  python_min: '3.10'
+  module_name: ${{ name|lower|replace("-", "_") }}
+
 
 package:
   name: ${{ name|lower|replace('_', '-') }}
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: b5d42898e812da1420e348309048a8bad1d56cdc11c8ca00a4828d3ac3fefae0
+  url: https://github.com/MiraGeoscience/${{ name }}/archive/v${{ version }}.tar.gz
+  sha256: 35488d7c3ee4e207ccc5dd86c55bf89989707e1a8eb5769b076d12a2fadfae76
 
 build:
+  number: 0
   noarch: python
-  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 2
+  script:
+  - export POETRY_DYNAMIC_VERSIONING_BYPASS=${{ version }}
+  - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - poetry-core >=1.0.0
+    - poetry-core >=1.8.0
+    - poetry-dynamic-versioning >=1.9, 1.*
     - python ${{ python_min }}.*
     - setuptools
   run:
     - python >=${{ python_min }}
-    - geoh5py >=0.10.0,<0.11.dev
-    - las-geoh5 >=0.3.0,<0.4.dev
-    - mira-omf >=3.3.0,<3.4.dev
+    - geoh5py >=0.12.0, 0.12.*
+    - las-geoh5 >=0.3.2, 0.3.*
+    - mira-omf >=3.3.2, 3.3.*
 
 tests:
   - python:
       imports:
-      - geoh5_interop
-      - geoh5py
-      - las_geoh5
-      - omf
-      - properties
+        - ${{ module_name }}
+        - ${{ module_name }}._version
+        - geoh5py
+        - las_geoh5
+        - omf
+        - properties
       pip_check: false  # something wrong with properties 0.6.1, but installation seems correct nonetheless
       python_version: ${{ python_min }}.*
   - script:
@@ -43,10 +49,14 @@ tests:
     requirements:
       run:
         - pip
+  - package_contents:
+      files:
+        - site-packages/${{ module_name }}/_version.py
 
 about:
   homepage: https://www.mirageoscience.com/mining-industry-software/python-integration
   summary: 'A meta-package that groups together packages for interoperability between GEOH5 and other file formats.'
+  # repository: https://github.com/MiraGeoscience/geoh5-interop
 
   description: |
     This meta-package collects the following packages:
