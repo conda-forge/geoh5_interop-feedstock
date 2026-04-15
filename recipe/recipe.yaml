@@ -17,15 +17,15 @@ build:
   number: 0
   noarch: python
   script:
-  - export POETRY_DYNAMIC_VERSIONING_BYPASS=${{ version }}
-  - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    - export POETRY_DYNAMIC_VERSIONING_BYPASS=${{ version }}
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
+    - python ${{ python_min }}.*
     - pip
     - poetry-core >=1.8.0
     - poetry-dynamic-versioning >=1.9, 1.*
-    - python ${{ python_min }}.*
     - setuptools
   run:
     - python >=${{ python_min }}
@@ -35,6 +35,7 @@ requirements:
 
 tests:
   - python:
+      python_version: ${{ python_min }}.*
       imports:
         - ${{ module_name }}
         - ${{ module_name }}._version
@@ -43,7 +44,6 @@ tests:
         - omf
         - properties
       pip_check: false  # something wrong with properties 0.6.1, but installation seems correct nonetheless
-      python_version: ${{ python_min }}.*
   - script:
       - pip list
     requirements:
@@ -56,7 +56,7 @@ tests:
 about:
   homepage: https://www.mirageoscience.com/mining-industry-software/python-integration
   summary: 'A meta-package that groups together packages for interoperability between GEOH5 and other file formats.'
-  # repository: https://github.com/MiraGeoscience/geoh5-interop
+  repository: https://github.com/MiraGeoscience/geoh5-interop
 
   description: |
     This meta-package collects the following packages:
