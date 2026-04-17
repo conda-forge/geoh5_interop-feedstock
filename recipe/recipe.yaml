@@ -1,6 +1,6 @@
 context:
   name: geoh5-interop
-  version: "1.3.0"
+  version: "1.3.1"
   python_min: '3.10'
   module_name: ${{ name|lower|replace("-", "_") }}
 
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/MiraGeoscience/${{ name }}/archive/v${{ version }}.tar.gz
-  sha256: 35488d7c3ee4e207ccc5dd86c55bf89989707e1a8eb5769b076d12a2fadfae76
+  sha256: 9debc9b9f1da014546534d446cf8e9803cf943f650e0d8fe20c8db437d486ed8
 
 build:
   number: 0
@@ -29,7 +29,7 @@ requirements:
     - setuptools
   run:
     - python >=${{ python_min }}
-    - geoh5py >=0.12.0, 0.12.*
+    - geoh5py >=0.12.1, 0.12.*
     - las-geoh5 >=0.3.2, 0.3.*
     - mira-omf >=3.3.2, 3.3.*
 
