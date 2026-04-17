@@ -9,6 +9,8 @@ Package license: MIT
 
 Summary: A meta-package that groups together packages for interoperability between GEOH5 and other file formats.
 
+Development: https://github.com/MiraGeoscience/geoh5-interop
+
 This meta-package collects the following packages:
 - [geoh5py](https://github.com/MiraGeoscience/geoh5py)
 - [mira-omf](https://github.com/MiraGeoscience/omf)
